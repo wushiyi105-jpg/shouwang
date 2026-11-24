@@ -120,7 +120,7 @@ CI 跑 3.10–3.13。
 
 ## 作者
 
-罗盛斓 · wushiyi105@gmail.com · [@wushiyi105-jpg](https://github.com/wushiyi105-jpg)
+shiyi · wushiyi105@gmail.com · [@wushiyi105-jpg](https://github.com/wushiyi105-jpg)
 
 ## License
 
