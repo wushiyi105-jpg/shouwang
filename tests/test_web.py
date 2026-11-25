@@ -5,7 +5,6 @@ import threading
 import unittest
 import urllib.error
 import urllib.request
-from unittest import mock
 
 from shouwang import store
 from shouwang.web import make_server

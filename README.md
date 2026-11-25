@@ -1,6 +1,6 @@
 # 守望 · Shouwang
 
-[![test](https://github.com/wushiyi105-jpg/shouwang/workflows/test/badge.svg)](https://github.com/wushiyi105-jpg/shouwang/actions) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![test](https://github.com/wushiyi105-jpg/shouwang/workflows/test/badge.svg)](https://github.com/wushiyi105-jpg/shouwang/actions) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![codecov](https://codecov.io/gh/wushiyi105-jpg/shouwang/branch/main/graph/badge.svg)](https://codecov.io/gh/wushiyi105-jpg/shouwang)
 
 [![test](https://github.com/wushiyi105-jpg/shouwang/actions/workflows/test.yml/badge.svg)](https://github.com/wushiyi105-jpg/shouwang/actions/workflows/test.yml)
 
@@ -83,6 +83,21 @@ python -m shouwang serve         # http://127.0.0.1:8766
 3. **比**：按行做集合差，得到"新增/变成"和"消失/原本是"。太短的行（"登录""首页"）不参与比较；一次最多报 15 条，防止整页重排时刷屏。
 4. **判**：把关注点 + 变化摘要给模型，要求输出 `{important, level, title, reason, advice}`。模型输出不是 JSON 就给保守默认值 `important=false`，并在事件里标"判断失败"。
 5. **记**：快照存库（每个监控留最近 50 次），事件无条件入库，重要的标 `important=1`。
+
+### 数据流
+
+一条数据在这几个模块之间怎么走：
+
+```mermaid
+flowchart LR
+    A[目标页面] --> B[fetch.py<br/>只取正文]
+    B --> C[diff.py<br/>逐行比对]
+    C -->|无变化| D[跳过，不留记录]
+    C -->|有变化| E[judge.py<br/>把变化交给模型判重要度]
+    E --> F[runner.py<br/>合并变化与判断]
+    F --> G[store.py 落库]
+    G --> H[cli.py / web.py<br/>只看重要的那些]
+```
 
 ## 目录结构
 

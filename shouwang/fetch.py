@@ -76,7 +76,7 @@ def fetch(url: str, timeout: int = 20) -> dict:
     fetched_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     if url.startswith("file://") or os.path.isfile(url):
-        path = url[7:] if url.startswith("file://") else url
+        path = url.removeprefix("file://")
         try:
             with open(path, encoding="utf-8", errors="replace") as f:
                 raw = f.read()
