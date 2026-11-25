@@ -1,5 +1,7 @@
 # 守望 · Shouwang
 
+[![test](https://github.com/wushiyi105-jpg/shouwang/workflows/test/badge.svg)](https://github.com/wushiyi105-jpg/shouwang/actions) [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 [![test](https://github.com/wushiyi105-jpg/shouwang/actions/workflows/test.yml/badge.svg)](https://github.com/wushiyi105-jpg/shouwang/actions/workflows/test.yml)
 
 给它一个网址和一句"你盯着什么"，它定时去看一眼。变了，先不告诉你——先问模型：这算不算事。

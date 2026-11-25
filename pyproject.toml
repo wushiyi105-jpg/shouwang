@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shouwang"
+version = "0.1.0"
+description = "网页正文变化监控：只比正文，改动交给模型判断重不重要"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+[project.scripts]
+shouwang = "shouwang.cli:main"
+
+[tool.setuptools]
+packages = ["shouwang"]
