@@ -58,6 +58,13 @@ Start the Web UI:
 python -m shouwang serve         # http://127.0.0.1:8766
 ```
 
+Run in Docker (the container uses the default port 8766):
+
+```bash
+docker build -t shouwang .
+docker run -p 8766:8766 shouwang
+```
+
 ## Command reference
 
 | Command | What it does |
@@ -71,6 +78,46 @@ python -m shouwang serve         # http://127.0.0.1:8766
 | `python -m shouwang enable / disable <名字>` | Turn on / off |
 | `python -m shouwang rm <名字>` | Delete (history and events go with it) |
 | `python -m shouwang serve --port 8766` | Web UI |
+
+## 🤔 Why not just ask a general LLM
+
+A general model can tell you "this page changed". Shouwang adds the three things it cannot:
+
+1. **Filter before shouting** — a raw diff counts layout, ad slots and timestamps as changes. Here the body text of two snapshots is diffed first, then the model judges: a price, stock, clause or deadline change is worth telling you, everything else is recorded as "not important". The Web UI shows how many the model suppressed, and you can audit those calls.
+2. **Reproducible results** — fetching, body extraction and diffing happen locally, the last 50 snapshots are kept so "what changed last Wednesday" is still answerable, and the same two snapshots always diff the same way. The model only judges importance, and you can override it.
+3. **Data stays local** — monitors, snapshots and change records live in local SQLite, so watching an internal page or a price sheet does not leak it; a model call sends only the diff excerpt.
+4. **Still guards offline** — with no key it keeps fetching and producing diffs, listing changes as they are without ranking them; ranking needs a model.
+
+## 🎯 Use cases
+
+- **Watch one product's price and stock**: add a link with focus "price, stock, shipping time" and get told only when it drops or runs low, instead of refreshing daily.
+- **Watch official clauses and deadlines**: tender notices, sign-up cut-offs and terms pages change by a single word; the model separates "deadline moved earlier" from "new banner image".
+- **Rehearse on local files**: keep two HTML files locally, monitor by path or `file://`, and see how it would judge a hypothetical change without crawling anyone's site.
+
+## 🗺 Roadmap
+
+- **Daily digest**: merge every monitor's changes in a day into one brief instead of one alert per item.
+- **Fetch failure alerts**: after N consecutive failures (403, timeout), say the monitor is broken instead of staying silent.
+- **Multi-page comparison per site**: watch a product page and a campaign page together to tell a site-wide change from a single-page edit.
+- **Notification outlets**: Webhook or email for the important tier, leaving the rest in the database.
+- **Visible ignore rules**: surface rules like "timestamps are not changes" so people can see and edit them.
+
+## ❓ FAQ
+
+**Where do I get an API key?**
+The project ships without one. It talks to DeepSeek (`https://api.deepseek.com`) by default — set `LLM_API_KEY`. OpenAI-compatible endpoints and a local Ollama also work.
+
+**Where is data stored, and are snapshots uploaded?**
+Monitors, snapshots and change records stay in local SQLite (default `data/shouwang.db`); a model call sends only the diff excerpt of two snapshots, not the whole page.
+
+**Does it work without a key?**
+Yes, degraded to raw diffs: it still fetches and still tells you which lines changed, but does not rank importance, so noise rises noticeably.
+
+**How do I switch models?**
+Change `LLM_BASE_URL`, `LLM_MODEL` and `LLM_API_KEY`; the fetching logic needs no change.
+
+**Why was a real change not reported?**
+It was probably judged unimportant (layout, timestamp, ad slot). The audit list on the Web shows it with the reason; if you disagree, mark it back manually.
 
 ## How it works
 
