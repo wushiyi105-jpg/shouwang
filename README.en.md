@@ -4,7 +4,7 @@
 
 Give it a URL and one sentence about what you care about, and it looks in on a schedule. When something changes, it does not tell you first — it asks the model: is this actually worth a notification?
 
-![demo](assets/demo.gif)
+![usage](assets/demo.gif)
 
 ## Why this exists
 
@@ -132,7 +132,7 @@ CI runs 3.10–3.13.
 
 **One extra space counted as a change.** The first version compared raw lines, so when the page went from 2-space to 4-space indentation, diff reported a screenful of "changes" and the model had to judge that nonsense too. Later I split "the line used for comparison" from "the line shown to you": comparison strips all whitespace, display keeps it.
 
-**Hacker News was unreachable.** I wanted to demo on its front page, but the TLS handshake from this machine to `news.ycombinator.com` gets cut (same as DuckDuckGo). So the demo moved to a public page that does connect, and I shipped a local v1/v2 pair so the "price changed → judgement" chain can be reproduced offline, without depending on someone else's site cooperating.
+**Hacker News was unreachable.** I wanted to test on its front page, but the TLS handshake from this machine to `news.ycombinator.com` gets cut (same as DuckDuckGo). So the test moved to a public page that does connect, and I shipped a local v1/v2 pair so the "price changed → judgement" chain can be reproduced offline, without depending on someone else's site cooperating.
 
 ## Author
 
