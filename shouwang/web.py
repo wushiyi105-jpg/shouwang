@@ -20,7 +20,7 @@ PAGE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>守望 · 网页变化监控</title>
+<title>守望 · 这次公告真正改了什么</title>
 <style>
   :root { --ink:#1b1f24; --muted:#6b7280; --line:#e6e8eb; --bg:#f6f7f9; --accent:#b1541f; }
   * { box-sizing:border-box; }
@@ -59,13 +59,91 @@ PAGE = """<!doctype html>
   .tag { font-size:11px; padding:2px 7px; border-radius:99px; background:#f0f1f3; color:#555; }
   .tag.high { background:#fdece4; color:#a3401a; }
   #hint { color:var(--muted); font-size:12px; margin-left:10px; }
+
+h1{font-size:clamp(31px,5vw,39px);line-height:1.26}
+.prod{display:block;font-size:11px;line-height:1.4;letter-spacing:.18em;font-weight:650;margin-bottom:8px;opacity:.72}
+.lede,.sub{max-width:62ch;line-height:1.75}
+.route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin:0 0 20px;border:1px solid var(--line);background:var(--line)}
+.route span{padding:11px 13px;background:var(--card);font-size:12px;line-height:1.5}
+.route b{display:block;font-size:10px;letter-spacing:.1em;margin-bottom:3px;opacity:.66}
+button{min-height:46px}
+input,select{min-height:44px}
+@media(max-width:680px){
+  .wrap{padding:20px 16px 56px}
+  .route{grid-template-columns:1fr}
+  h1{font-size:30px!important}
+  .row>div{min-width:100%!important}
+  button{width:100%}
+}
+
+body{background:#f2f3f4;color:#1f2933;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1020px}
+header{padding:8px 0 20px;border-bottom:1px solid #b9c2c9;margin-bottom:20px}
+header h1{font-family:"Songti SC","SimSun",Georgia,serif;font-size:36px;line-height:1.24}
+header p{color:#65717a;font-size:14px}
+.card{background:#fff;border:1px solid #cfd6dc;border-top:2px solid #2c5c8f;border-radius:0;box-shadow:none}
+button{background:#2c5c8f;border-radius:0;letter-spacing:.05em}
+button:hover{background:#234b76}
+textarea,input,select{background:#fff;border-color:#c9d1d7;border-radius:0}
+textarea:focus,input:focus,select:focus{border-color:#2c5c8f;box-shadow:0 0 0 2px #d6e1ec}
+.item{border-left:3px solid #2c5c8f}
+h3{color:#2c5c8f;letter-spacing:.08em}
+
+
+/* palette-normalized */
+:root{--bg:#f2f3f4;--card:#ffffff;--ink:#1f2933;--text:#1f2933;--dim:#65717a;--line:#cfd6dc;--accent:#2c5c8f}
+pre{background:#f7f9fa;color:#1f2933;border-color:#cfd6dc;border-radius:2px}
+
+header{display:block!important;background:transparent!important;border:0!important;padding:24px 20px 0!important;max-width:1020px;margin:0 auto!important}
+header>span{display:none!important}
+header h1{font-family:"Songti SC","SimSun",Georgia,serif;font-size:36px!important;line-height:1.24!important;margin:0 0 8px!important}
+header .lede{margin:0;color:#65717a!important}
+.route{max-width:1020px;margin:16px auto 18px!important}
+main{max-width:1020px;margin:0 auto;border-left:1px solid #cfd6dc;border-right:1px solid #cfd6dc;background:#fff}
+
+/* polish-batch1 */
+button.ghost,button.secondary{background:transparent!important;color:#2c5c8f!important;border:1px solid #cfd6dc!important}
+
+header{display:block!important;max-width:1020px;margin:0 auto!important;padding:24px 20px 0!important;background:transparent!important;border:0!important}
+header>span{display:none!important}
+header h1{font-size:36px!important;line-height:1.24!important;margin:0 0 8px!important;color:#1f2933!important}
+header .lede{margin:0!important}
+.route{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;max-width:1020px;min-height:58px;margin:14px auto 18px!important;background:#cfd6dc!important;border:1px solid #cfd6dc!important}
+.route span{display:block!important;padding:12px 14px!important;background:#fff!important;color:#1f2933!important}
+main{max-width:1020px;margin:0 auto;background:#fff;border-left:1px solid #cfd6dc;border-right:1px solid #cfd6dc}
+
+.brief{padding:18px 22px;border-bottom:1px solid #cfd6dc;background:#fbfcfc}
+.brief h3{font-size:14px;margin:0 0 8px;color:#2c5c8f;letter-spacing:.04em}
+.brief p{margin:0 0 8px;line-height:1.7;color:#3f4a53;font-size:14px}
+.brief ol{margin:0;padding-left:18px;color:#3f4a53;font-size:14px;line-height:1.8}
+
+/* mobile-32 */
+
+@media(max-width:760px){
+  main{grid-template-columns:1fr!important}
+  aside{border-right:0!important;border-bottom:1px solid #cfd6dc;width:auto!important}
+  section{padding:16px!important}
+  .row{flex-wrap:wrap!important}
+  .row>div{min-width:100%!important}
+  h1{font-size:30px!important}
+  .route{grid-template-columns:1fr!important}
+  button{min-height:48px}
+  pre{overflow-x:auto}
+}
+
+/* mobile-height */
+@media(max-width:760px){main{min-height:auto!important}aside{min-height:0!important}}
 </style>
 </head>
 <body>
 <header>
-  <h1>守望</h1>
+  <h1><span class="prod">守望</span>这次公告，真正改了什么</h1>
   <span>盯着网页，变了先问模型值不值得吵你</span>
-</header>
+
+    <p class="lede">给盯招标、公告或政策更新的运营：框定页面区块和关注词，把排版噪声与实质变更分开，摘要能展开到前后原文。</p>
+  </header>
+  <div class="route" aria-label="任务步骤"><span><b>01</b>定来源和区块</span><span><b>02</b>分噪声与变更</span><span><b>03</b>确认截止日期</span></div>
+
 <main>
 <aside>
   <h2>监控</h2>
@@ -80,6 +158,11 @@ PAGE = """<!doctype html>
   </div>
 </aside>
 <section>
+  <div class="brief">
+    <h3>先加一个公告，再看它改了什么</h3>
+    <p>第一次抓取只存基线，不打扰你；从第二次开始，只把实质变化放进待看队列，抓取失败会标成来源异常。</p>
+    <ol><li>填一个公开公告页地址，关注点写“截止日期、公告编号”。</li><li>下一次检查后，先读变化摘要，再展开前后原文。</li></ol>
+  </div>
   <div class="stats" id="stats"></div>
   <div id="events"></div>
 </section>
